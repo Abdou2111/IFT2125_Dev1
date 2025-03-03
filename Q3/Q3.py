@@ -1,16 +1,46 @@
 # Nom(s) étudiant(s) / Name(s) of student(s):
-
+# Abdelghafour Rahmouni
+# Marc Olivier Jean Paul
 import sys
 
 # Espace pour fonctions auxillaires :
 # Space for auxilary functions :
+def get_mediane(list, n):
+    # Si pair
+    if n % 2 == 0:
+        return (list[n // 2 - 1] + list[n // 2]) / 2
 
-
+    # Si impair
+    return list[n // 2]
 
 
 # Fonction à compléter / function to complete:
 def solve(numbers):
-    pass
+    n = len(numbers)
+    if n == 0:
+        return []
+    median = get_mediane(numbers, n)    # O(1)
+
+    left = 0
+    right = n - 1
+
+    seen_pairs = set()
+
+    while left < right:
+        # O(n), pire cas, on parcourt tout le tableau
+        # càd on rentre tjrs soit dans elif soit dans else
+        somme = numbers[left] + numbers[right]
+        if somme == median:
+            pair = (numbers[left], numbers[right])
+            seen_pairs.add(pair)
+            left += 1
+            right -= 1
+        elif somme < median:
+            left += 1
+        else:
+            right -= 1
+
+    return list(seen_pairs)
 
 
 # Ne pas modifier le code ci-dessous :
