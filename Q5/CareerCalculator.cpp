@@ -1,18 +1,20 @@
 #include "CareerCalculator.h"
-#include <vector>
-#include <math.h>
-#include <iostream>
 
-// ce fichier contient les definitions des methodes de la classe CareerCalculator
-// this file contains the definitions of the methods of the CareerCalculator class
+CareerCalculator::CareerCalculator() {
+}
 
 using namespace std;
 
-CareerCalculator::CareerCalculator()
-{
-}
+bool CareerCalculator::CalculateMaxCareer(const std::vector<int>& steps) {
 
-bool CareerCalculator::CalculateMaxCareer(const vector<int>& Steps) {
-    // Completer ici
-    return false;
+    int step = 0;
+    bool feasable = true;
+
+    while (feasable && step < steps.size()) {	// O(n) pire cas, si le vecteur contient que des 1
+        step += steps[step];	// On avance de steps[step] pas (le int à l'index 'step' du vecteur 'steps')
+        if (steps[step] == 0) {
+            feasable = false;	// Si on tombe sur un 0, on avance plus
+        }
+    }
+    return feasable;
 }
