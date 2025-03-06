@@ -6,43 +6,58 @@ import sys
 # Espace pour fonctions auxillaires :
 # Space for auxilary functions :
 
-# Cette fonction prend en paramètre deux tableaux d'entiers et retourne
-# un tableau trié contenant les éléments des deux tableaux.
-# Complexité recherchée: O(log(n+m))
-# Complexitée obtenue: O(n+m)
-def tri(nums1, nums2):
-    tab = []                                    # O(1)
-    i = 0                                       # O(1)                 
-    j = 0
-    while i < len(nums1) and j < len(nums2):    # O(n+m)
-        if nums1[i] < nums2[j]:                 # O(1)
-            tab.append(nums1[i])                # O(1)
-            i += 1                              # O(1)
-        else:
-            tab.append(nums2[j])                # O(1)
-            j += 1                              # O(1)
-    while i < len(nums1):                       # O(n)
-        tab.append(nums1[i])                    # O(1)
-        i += 1                                  # O(1)
-    while j < len(nums2):                       # O(m)
-        tab.append(nums2[j])                    # O(1)
-        j += 1                                  # O(1)
-    return tab                                  # O(1)
-
 # Fonction à compléter / function to complete:
 
 # Cette fonction prend en paramètre deux tableaux d'entiers et retourne
 # la valeur médiane des deux tableaux
-# Complexité recherchée: O(log(n+m))
-# Complexité obtenue: O(n+m)
 def solve(nums1,nums2):
-    num = tri(nums1, nums2)                                     # O(n+m)          
-    # Cas ou la taille du tableau est paire                                       
-    if len(num) % 2 == 0:                                       # O(1)        
-        return (num[len(num)//2] + num[len(num)//2 - 1]) / 2    # O(1)
-    # Cas ou la taille du tableau est impaire
-    else:                                                       # O(1)
-        return num[len(num)//2]                                 # O(1)
+    # On s'assure que nums1 est le plus petit tableau
+    if len(nums1) > len(nums2):                                 # O(1)                    
+        nums1, nums2 = nums2, nums1                             # O(1)
+    # On récupère la taille des deux tableaux
+    n = len(nums1)                                              # O(1)
+    m = len(nums2)                                              # O(1)
+    # On initialise les indices min et max
+    imin = 0                                                    # O(1)
+    imax = n                                                    # O(1)
+
+    # On effectue une recherche dichotomique
+    while imin <= imax:                                         # O(log(n+m))
+        # On calcule les indices i et j avec j en fonction de i
+        i = (imin + imax) // 2                                  # O(1)
+        j = (n + m + 1) // 2 - i                                # O(1)
+
+        # On récupère les valeurs max et min des deux tableaux
+        if i == 0:                                              # O(1)
+            max1 = float('-inf')                                # O(1)
+        else:                                                   # O(1)
+            max1 = nums1[i - 1]                                 # O(1)
+        if i == n:                                              # O(1)
+            min1 = float('inf')                                 # O(1)
+        else:                                                   # O(1)
+            min1 = nums1[i]                                     # O(1)
+        
+        if j == 0:                                              # O(1)
+            max2 = float('-inf')                                # O(1)
+        else:                                                   # O(1)
+            max2 = nums2[j - 1]                                 # O(1)
+        if j == m:                                              # O(1)
+            min2 = float('inf')                                 # O(1)
+        else:                                                   # O(1)
+            min2 = nums2[j]                                     # O(1)
+
+        # On vérifie le nombre d'éléments pour savoir quoi retourner
+        if max1 <= min2 and max2 <= min1:                       # O(1)
+            if (n + m) % 2 == 0:                                # O(1)
+                return (max(max1, max2) + min(min1, min2)) / 2  # O(1)
+            else:                                               # O(1)
+                return max(max1, max2)                          # O(1)
+        
+        # on ajuste les indices selons les valeurs
+        elif max1 > min2:                                       # O(1)
+            imax = i - 1                                        # O(1)
+        else:                                                   # O(1)
+            imin = i + 1                                        # O(1)
     
 
 # Ne pas modifier le code ci-dessous :
