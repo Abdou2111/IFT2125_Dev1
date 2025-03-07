@@ -1,3 +1,6 @@
+// Marc Olivier Jean Paul: 20241763
+// Abdelghafour Rahmouni: 20246224
+
 #include "CareerCalculator.h"
 
 CareerCalculator::CareerCalculator() {
